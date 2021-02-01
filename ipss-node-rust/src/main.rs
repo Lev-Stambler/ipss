@@ -14,6 +14,8 @@ fn main() {
     let dht = dht::DHTNode::init();
     let dht_mut = Mutex::new(dht);
     let mut server = server::Server::new(dht_mut);
-    server.start();
+    std::thread::spawn(move || {
+        server.start();
+    });
     loop {}
 }
